@@ -12,8 +12,8 @@ return new \Phalcon\Config([
         'adapter'     => 'Mysql',
         'host'        => 'localhost',
         'username'    => 'root',
-        'password'    => '',
-        'dbname'      => 'test',
+        'password'    => 'admin',
+        'dbname'      => 'store',
         'charset'     => 'utf8',
     ],
     'application' => [
@@ -22,7 +22,6 @@ return new \Phalcon\Config([
         'modelsDir'      => APP_PATH . '/models/',
         'migrationsDir'  => APP_PATH . '/migrations/',
         'viewsDir'       => APP_PATH . '/views/',
-        'pluginsDir'     => APP_PATH . '/plugins/',
         'libraryDir'     => APP_PATH . '/library/',
         'cacheDir'       => BASE_PATH . '/cache/',
         'baseUri'        => '/',

@@ -9,38 +9,19 @@ define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 
 try {
-    /**
-     * The FactoryDefault Dependency Injector automatically registers
-     * the services that provide a full stack framework.
-     */
     $di = new FactoryDefault();
-
-    /**
-     * Read services
-     */
     include APP_PATH . '/config/services.php';
 
-    /**
-     * Handle routes
-     */
-    include APP_PATH . '/config/router.php';
+    $router = $di->getRouter();
+    $router->handle($_SERVER['REQUEST_URI']);
 
-    /**
-     * Get config service for use in inline setup below
-     */
     $config = $di->getConfig();
+    $loader = new \Phalcon\Loader();
+    $loader->registerDirs([$config->application->controllersDir, $config->application->modelsDir])->register();
 
-    /**
-     * Include Autoloader
-     */
-    include APP_PATH . '/config/loader.php';
-
-    /**
-     * Handle the request
-     */
     $application = new \Phalcon\Mvc\Application($di);
-
     echo $application->handle($_SERVER['REQUEST_URI'])->getContent();
+
 } catch (\Exception $e) {
     echo $e->getMessage() . '<br>';
     echo '<pre>' . $e->getTraceAsString() . '</pre>';
